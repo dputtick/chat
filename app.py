@@ -14,7 +14,9 @@ def config():
         'global': {
             'server.socket_host': '127.0.0.1',
             'server.socket_port': 8000,
-            # 'environment': production
+            # 'environment': production,
+            'log.access_file': '',
+            'log.error_file': ''
         }
     }
     return conf
