@@ -6,18 +6,16 @@ class Root():
     @cherrypy.expose
     def index(self, message=None):
         if message:
-            if not cherrypy.session.get('messages'):
-                cherrypy.session['messages'] = []
-            cherrypy.session['messages'].append(message)
+            self.add_message(message)
         messages = cherrypy.session['messages']
-        retlist = [m + '\n' for m in messages[:-1]]
-        retlist.append(messages[-1])
-        return ''.join(retlist)
+        return ' '.join(messages)
 
-    def add_message(message):
-        pass
+    def add_message(self, message):
+        if not cherrypy.session.get('messages'):
+            cherrypy.session['messages'] = []
+        cherrypy.session['messages'].append(message)
 
 
 if __name__ == '__main__':
-    cherrypy.config.update("global.cfg")
-    cherrypy.quickstart(Root(), '/')
+    cherrypy.config.update('global.cfg')
+    cherrypy.quickstart(Root(), '/', 'global.cfg')
