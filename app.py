@@ -12,6 +12,10 @@ class Root():
 @cherrypy.expose
 class Messages():
 
+    def __init__(self):
+        self.dbname = cherrypy.config['dbname']
+        self.username = cherrypy.config['user']
+
     def GET(self):
         if cherrypy.session.get('messages', None):
             messages = ' '.join(cherrypy.session['messages'])
@@ -27,15 +31,11 @@ class Messages():
         return message_len
 
     def add_message(self, mess_id, message):
-        dbname = cherrypy.config['database']['dbname']
-        username = cherrypy.config['database']['user']
-        conn = psycopg2.connect(dbname + ' ' + username)
+        conn = psycopg2.connect(self.dbname + ' ' + self.username)
         cursor = conn.cursor()
 
     def get_message(self, mess_id):
-        dbname = cherrypy.config['database']['dbname']
-        username = cherrypy.config['database']['user']
-        conn = psycopg2.connect(dbname + ' ' + username)
+        conn = psycopg2.connect(self.dbname + ' ' + self.username)
         cursor = conn.cursor()
 
 
