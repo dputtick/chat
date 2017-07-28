@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
+
 import sys
 import os
 
 import requests
 
 
-SERVER_IP = os.environ('SERVER')
+SERVER_IP = str(os.environ.get('SERVER'))
 PORT = 8000
 
 
@@ -32,4 +34,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print(SERVER_IP)
     main()
