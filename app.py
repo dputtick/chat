@@ -23,6 +23,8 @@ class Messages():
         if not cherrypy.session.get('messages', None):
             cherrypy.session['messages'] = []
         cherrypy.session['messages'].append(message)
+        message_len = str(len(message))
+        return message_len
 
     def add_message(self, mess_id, message):
         dbname = cherrypy.config['database']['dbname']
